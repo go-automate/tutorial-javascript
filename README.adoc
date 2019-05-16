@@ -1,0 +1,450 @@
+= Introduction to the JavaScript Syntax
+:Author: Simon Stratton
+:Version: 0.1
+:imagesdir: ..\images
+:source-highlighter: prettify
+
+:doctype: book
+
+:blank: pass:[ +]
+
+== Runtime Environments
+
+First we'll take a look at the available run-time environments for JavaScript. JavaScript was designed to run in the browser.
+
+We can see this if we open up the `Developer Tools` in our browser and expose the `Console`.
+
+{blank}
+*****
+. Open up your Chrome browser and press `F12` to open the developer tools.
+. From the ribbon menu at the top, click on `Console`.
+. In the console write the following code:
++
+.Console
+[source,javascript]
+----
+1+1
+----
+*****
+. And press `enter`.
+{blank}
+
+You'll see that the answer `2` prints to screen. We can also interact with the browser. 
+
+{blank}
+*****
+. Type the following code in your console:
++
+.Console
+[source,javascript]
+----
+alert(1+1)
+----
+*****
+{blank}
+
+You'll see an `alert` box pop up with the answer `2` in there. 
+
+We can also interact with any webpage that we're on using the `document`. 
+
+{blank}
+*****
+. Navigate to `safebear.co.uk` in the browser.
+. Type the following code in your console:
++
+.Console
+[source,javascript]
+----
+document.getElementsByTagName("strong")[0].innerHTML = "Hello World";
+----
+*****
+{blank}
+
+You'll notice that the page title changes to `Hello World`.
+
+== NodeJS
+
+NodeJS offers us the ability to run JavaScript on our computer outside of the browser. This enables us to use JavaScript to write code on our server and create our server-side application in JavaScript rather than a different language.
+
+We can use NodeJS's `repl` (Read, Evaluate, Print, Loop) editor to explore this further and dynamically run our code as we did in the browser console.
+
+{blank}
+*****
+. On your laptop, use the `Start` menu to open a `Powershell` terminal. Run the following command:
++
+ node
++
+. This will open our editor. Type the following code:
++
+.Console
+[source,javascript]
+----
+1+1
+----
+. Again you'll get the answer `2`.
+*****
+{blank}
+
+We'll be using NodeJS to run the code for our test framework.
+
+== JavaScript Syntax
+
+In this exercise, we'll take a look at some of the JavaScript syntax that you may come across on the course and when you return to work.
+
+In this course we'll cover:
+
+. Variables
+. Objects
+. Functions
+
+First, we'll take a look at variables.
+
+== Variables
+
+In JavaScript, all variables are declared with the `var` keyword. A variable is used to store data. Typically, this data will be
+:
+
+. A string (e.g. a line of text)
+. A number (in JavaScript all numbers are decimial-point numbers)
+. A boolean (`true` or `false`)
+. Or an object (we'll take a look at these later)
+
+NOTE: A variable can also be `null` or `undefined`. We won't cover these here, but it is worth completing a simple JavaScript course to explore these concepts further.
+
+Because it's a `dynamically-typed` language, you don't need to specify what type of data is stored in each variable, JavaScript will work it out at runtime.
+
+For example, if we needed to declare a variable called `name` which would store the name `Bob` (i.e. a `string`), we would use the following syntax:
+
+.example
+[source,javascript]
+----
+var name = "Bob";
+----
+
+NOTE: Each line of code ends with a semi-colon. The JavaScript compiler will add these if you miss them, however it's good practice to add them in yourself.
+
+The latest version of JavaScript (ES6) introduces two new variable types: `let` and `const`. The key differences between these variables and `var` are:
+
+=== Scope
+
+`var` is scoped to the current execution context (roughly speaking, the current running function). While `let` and `const` are scoped to the nearest curly brackets. 
+
+{blank}
+*****
+. Run the following code in your browser console or `node` repl editor (or both):
++
+.example
+[source,javascript]
+----
+var varName = "varName";
+let letName = "letName";
+
+console.log(varName);
+console.log(letName);
+
+while(varName == "varName"){
+    var varName = "newVarName";
+    let letName = "newLetName";
+}
+
+console.log(varName);
+console.log(letName);
+----
+*****
+{blank}
+
+The output should be as follows:
+
+.example
+[source,javascript]
+----
+varName
+letName
+newVarName
+letName
+----
+
+You can see that the `varName` variable has been updated to `newVarName`, but the `letName` variable remains the same.
+
+=== Functionality
+
+While the values of both the `var` and `let` variables can be changed at any point, a `const` variable cannot be updated.
+
+{blank}
+*****
+. Try to run the following code:
++
+.example
+[source,javascript]
+----
+const constName = "constName";
+let letName = "letName";
+
+constName = "newConstName";
+----
+*****
+{blank}
+
+This code will fail as we can't update a `const` variable.
+
+== Objects
+
+Objects in JavaScript are simply collections of key/value pairs. The easiest way to create a new object is using an `object literal` format:
+
+.example
+[source,javascript]
+----
+var person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+----
+
+Let's run this in the browser or in the NodeJS repl editor. JavaScript ignores white space, so we've used new lines for each key/value pair in the object for readability:
+
+{blank}
+*****
+. Run the following code in your browser (using the `console` in `developer tools`):
++
+.example
+[source,javascript]
+----
+var person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50,
+  eyeColor: "blue"
+};
+console.log(person);
+----
+*****
+{blank}
+
+This is the preferred way to create an object, as it's simple and easy to read. It's also compatible with the `JSON` (JavaScript Object Notation) syntax. `JSON` is a format for storing and exchanging data. Try the following in your browser:
+
+{blank}
+*****
+. Run the following code in your browser (using the `console` in `developer tools`):
++
+.example
+[source,javascript]
+----
+var myJSON = '{"name":"John", "age":31, "city":"New York"}';
+var myObj = JSON.parse(myJSON);
+undefined
+console.log(myObj);
+----
+*****
+{blank}
+
+Another (less popular) way to create an object in JavaScript is using the `new` keyword:
+
+.example
+[source,javascript]
+----
+var person = new Object();
+person.firstName = "John";
+person.lastName = "Doe";
+person.age = 50;
+person.eyeColor = "blue";
+----
+
+Again, let's try this out in the console:
+
+{blank}
+*****
+. Run the following code in your browser (using the `console` in `developer tools`):
++
+.example
+[source,javascript]
+----
+var person = new Object();
+person.firstName = "John";
+person.lastName = "Doe";
+person.age = 50;
+person.eyeColor = "blue";
+----
+*****
+{blank}
+
+== Functions
+
+Functions are pieces of code that perform an action. Type this into your browser console:
+
+{blank}
+*****
+. Run the following code in your browser (using the `console` in `developer tools`):
++
+.example
+[source,javascript]
+----
+function printName(){
+
+  alert("bob")
+
+}
+----
+*****
+{blank}
+
+You can see we have created a function called `printName` that will create an `alert` in our browser. The alert will contain the name `bob`.
+
+To run a function, we use the `()` operator. 
+
+{blank}
+*****
+. Add the following line in your browser console and press `enter`.
++
+.example
+[source,javascript]
+----
+printName();
+----
+*****
+{blank}
+
+The alert will appear.
+
+Functions can also have `inputs`:
+
+{blank}
+*****
+. Run the following code in your browser:
++
+.example
+[source,javascript]
+----
+function printName(name){
+
+  alert(name)
+
+}
+----
++
+. Now let's run this function:
++
+.example
+[source,javascript]
+----
+printName("james");
+----
+*****
+{blank}
+
+This time, the alert will print the name `james`.
+
+Functions can also have `outputs`. The `return` keyword is used in this case:
+
+{blank}
+*****
+. Enter the following code in your browser:
++
+.example
+[source,javascript]
+----
+function printName(name){
+
+  return "your name is " + name;
+
+}
+----
++
+. Again, let's run this function:
++
+.example
+[source,javascript]
+----
+var message = printName("harry")
+----
++
+. And then find out what was returned back from the function and stored in the `message` variable:
++
+.example
+[source,javascript]
+----
+alert(message);
+----
+*****
+{blank}
+
+This time the alert will say `your name is harry`.
+
+== EXTRA TIME: Other Formats for Functions
+
+Functions can be stored in variables. In this case, you can use the variable name to run the function. For example:
+
+.example
+[source,javascript]
+----
+var alertName = function (){
+
+  alert("bob")
+
+}
+----
+
+Now we can run this using the name of the variable, which is `alertName`:
+
+.example
+[source,javascript]
+----
+alertName();
+----
+
+This is called an `anonymous` function as it hasn't been set with a name, however it can still be run using the variable name - and `bob` appears in an alert.
+
+You can also immediately execute functions. These are called Immediately Invoked Function Expressions (or `IIFE` for short). Here's an example of one:
+
+.example
+[source,javascript]
+----
+!function() {
+    alert("helen");
+}();
+----
+
+This time `helen` appears in the alert straight away, without us having to `call` the function. The `!` symbol stops the browser from interpreting the `function` keyword as a definition that will be called later, instead it forces the browser to treat this line as an expression to be run.
+
+The `()` brackets at the end will execute the function. For example, an IIFE function with an input will look like this:
+
+.example
+[source,javascript]
+----
+!function(name) {
+    alert(name);
+}("gerry");
+----
+
+This will alert the word `gerry`.
+
+In the latest version of JavaScript (ES6), the `arrow` syntax for creating functions was introduced to make code simpler and more readable. Here's an example of a function we created earlier:
+
+.example
+[source,javascript]
+----
+function printName(name){
+
+  alert(name)
+
+}
+printName("timothy");
+----
+
+And here's the same function using the `arrow` syntax:
+
+.example
+[source,javascript]
+----
+var printName = (name) => { alert(name) };
+printName("geoffrey");
+----
+
+Try both in the browser. You'll notice that the second is simpler and easier to read, but they both do the same thing.
+
+== EXTRA TIME: Asynchronous Functions
+
+It's also worth noting that in JavaScript all functions are asynchronous. This means that the next function in a line of code will run before the first function has completed. It also means that the fastest function will finish first. 
+
+The only way to `force` one function to run after another is to use a technique called a `callback`. We don't cover this on the course (as it's not necessary for our framework), however it's worth taking a short course on `JavaScript` to fully understand this concept.
