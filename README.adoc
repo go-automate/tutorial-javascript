@@ -64,13 +64,13 @@ You'll notice that the page title changes to `Hello World`.
 
 == NodeJS
 
-NodeJS offers us the ability to run JavaScript on our computer outside of the browser. This enables us to use JavaScript to write code on our server and create our server-side application in JavaScript rather than a different language.
+[NodeJS](https://nodejs.org/en/download/) offers us the ability to run JavaScript on our computer outside of the browser. This enables us to use JavaScript to write code on our server and create our server-side application in JavaScript rather than a different language.
 
 We can use NodeJS's `repl` (Read, Evaluate, Print, Loop) editor to explore this further and dynamically run our code as we did in the browser console.
 
 {blank}
 *****
-. On your laptop, use the `Start` menu to open a `Powershell` terminal. Run the following command:
+. On your laptop, use the `Start` menu to open a `Powershell` terminal (if you're running Windows. For OSX or Linux, open a Terminal). Run the following command:
 +
  node
 +
